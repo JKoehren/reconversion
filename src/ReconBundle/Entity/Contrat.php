@@ -28,7 +28,11 @@ class Contrat
      */
     private $type;
 
-
+    /**
+    * @ORM\OneToMany(targetEntity="Situation", mappedBy="contrat")
+    */
+    private $situation;
+    
     /**
      * Get id
      *

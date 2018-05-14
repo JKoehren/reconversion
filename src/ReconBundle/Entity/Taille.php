@@ -28,7 +28,11 @@ class Taille
      */
     private $type;
 
-
+    /**
+    * @ORM\OneToMany(targetEntity="Situation", mappedBy="taille")
+    */
+    private $situation;
+    
     /**
      * Get id
      *

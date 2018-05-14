@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net
 --
 -- Client :  localhost
--- Généré le :  Lun 14 Mai 2018 à 15:14
+-- Généré le :  Lun 14 Mai 2018 à 16:49
 -- Version du serveur :  5.6.35
 -- Version de PHP :  7.0.16
 
@@ -65,7 +65,13 @@ CREATE TABLE IF NOT EXISTS `situation` (
   `anneeExp` int(11) NOT NULL,
   `nomEntreprise` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `codePostal` varchar(5) COLLATE utf8_unicode_ci NOT NULL,
-  `ville` varchar(255) COLLATE utf8_unicode_ci NOT NULL
+  `ville` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `contrat_id` int(11) DEFAULT NULL,
+  `scp_id` int(11) DEFAULT NULL,
+  `etudes_id` int(11) DEFAULT NULL,
+  `taille_id` int(11) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `type` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -107,8 +113,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `tel` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `pass` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `nom` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `prenom` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `mail` varchar(255) COLLATE utf8_unicode_ci NOT NULL
+  `prenom` varchar(255) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -137,7 +142,12 @@ ALTER TABLE `etudes`
 -- Index pour la table `situation`
 --
 ALTER TABLE `situation`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `IDX_EC2D9ACA1823061F` (`contrat_id`),
+  ADD KEY `IDX_EC2D9ACA10D96FEF` (`scp_id`),
+  ADD KEY `IDX_EC2D9ACA448A1682` (`etudes_id`),
+  ADD KEY `IDX_EC2D9ACAFF25611A` (`taille_id`),
+  ADD KEY `IDX_EC2D9ACAA76ED395` (`user_id`);
 
 --
 -- Index pour la table `taille`
@@ -188,6 +198,20 @@ ALTER TABLE `taille`
 --
 ALTER TABLE `user`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- Contraintes pour les tables exportées
+--
+
+--
+-- Contraintes pour la table `situation`
+--
+ALTER TABLE `situation`
+  ADD CONSTRAINT `FK_EC2D9ACA10D96FEF` FOREIGN KEY (`scp_id`) REFERENCES `c_s_p` (`id`),
+  ADD CONSTRAINT `FK_EC2D9ACA1823061F` FOREIGN KEY (`contrat_id`) REFERENCES `contrat` (`id`),
+  ADD CONSTRAINT `FK_EC2D9ACA448A1682` FOREIGN KEY (`etudes_id`) REFERENCES `etudes` (`id`),
+  ADD CONSTRAINT `FK_EC2D9ACAA76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
+  ADD CONSTRAINT `FK_EC2D9ACAFF25611A` FOREIGN KEY (`taille_id`) REFERENCES `taille` (`id`);
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

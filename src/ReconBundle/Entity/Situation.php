@@ -20,6 +20,13 @@ class Situation
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+    
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="type", type="boolean")
+     */
+    private $type;
 
     /**
      * @var string
@@ -56,6 +63,31 @@ class Situation
      */
     private $ville;
 
+    /**
+    * @ORM\ManyToOne(targetEntity="User", inversedBy="situations")
+    * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+    */
+    private $user;
+    
+    /**
+    * @ORM\ManyToOne(targetEntity="Contrat", inversedBy="situation")
+    */
+    private $contrat;
+    
+    /**
+    * @ORM\ManyToOne(targetEntity="CSP", inversedBy="situation")
+    */
+    private $scp;
+    
+    /**
+    * @ORM\ManyToOne(targetEntity="Etudes", inversedBy="situation")
+    */
+    private $etudes;
+    
+    /**
+    * @ORM\ManyToOne(targetEntity="Taille", inversedBy="situation")
+    */
+    private $taille;
 
     /**
      * Get id
@@ -65,6 +97,30 @@ class Situation
     public function getId()
     {
         return $this->id;
+    }
+    
+/**
+     * Set type
+     *
+     * @param string $type
+     *
+     * @return Situation
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
     }
 
     /**

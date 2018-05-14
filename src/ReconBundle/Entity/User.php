@@ -91,17 +91,16 @@ class User extends BaseUser
      * @ORM\Column(name="prenom", type="string", length=255)
      */
     private $prenom;
-
+    
     /**
-     * @var string
-     *
-     * @ORM\Column(name="mail", type="string", length=255)
-     */
-    private $mail;
+    * @ORM\OneToMany(targetEntity="Situation", mappedBy="user")
+    */
+    private $situations;
 
     public function __construct()
     {
         parent::__construct();
+        $this->situations = new \Doctrine\Common\Collections\ArrayCollection();
         // your own logic
     }
     
@@ -353,30 +352,6 @@ class User extends BaseUser
     public function getPrenom()
     {
         return $this->prenom;
-    }
-
-    /**
-     * Set mail
-     *
-     * @param string $mail
-     *
-     * @return User
-     */
-    public function setMail($mail)
-    {
-        $this->mail = $mail;
-
-        return $this;
-    }
-
-    /**
-     * Get mail
-     *
-     * @return string
-     */
-    public function getMail()
-    {
-        return $this->mail;
     }
 }
 

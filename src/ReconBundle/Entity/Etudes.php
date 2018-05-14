@@ -28,6 +28,10 @@ class Etudes
      */
     private $type;
 
+    /**
+    * @ORM\OneToMany(targetEntity="Situation", mappedBy="etudes")
+    */
+    private $situation;
 
     /**
      * Get id

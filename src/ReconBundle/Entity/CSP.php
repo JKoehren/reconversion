@@ -28,7 +28,11 @@ class CSP
      */
     private $type;
 
-
+    /**
+    * @ORM\OneToMany(targetEntity="Situation", mappedBy="scp")
+    */
+    private $situation;
+    
     /**
      * Get id
      *
