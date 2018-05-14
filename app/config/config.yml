@@ -2,15 +2,16 @@ imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
     - { resource: services.yml }
+    - { resource: "@ReconBundle/Resources/config/services.yml" }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
-    locale: en
+    locale: fr
 
 framework:
     #esi: ~
-    #translator: { fallbacks: ['%locale%'] }
+    translator: { fallbacks: ['%locale%'] }
     secret: '%secret%'
     router:
         resource: '%kernel.project_dir%/app/config/routing.yml'
@@ -30,6 +31,8 @@ framework:
     assets: ~
     php_errors:
         log: true
+    templating: 
+        engines: ['twig']
 
 # Twig Configuration
 twig:
@@ -59,9 +62,22 @@ doctrine:
         auto_mapping: true
 
 # Swiftmailer Configuration
+
 swiftmailer:
     transport: '%mailer_transport%'
     host: '%mailer_host%'
     username: '%mailer_user%'
     password: '%mailer_password%'
     spool: { type: memory }
+
+# Fos User Configuration
+
+fos_user:
+    db_driver: orm # other valid values are 'mongodb' and 'couchdb'
+    firewall_name: main
+    user_class: ReconBundle\Entity\User
+    service: 
+        mailer: fos_user.mailer.twig_swift
+    from_email:
+        address: "toto@upmc.com"
+        sender_name: "toto BundleFOSUser"

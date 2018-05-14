@@ -1,0 +1,4 @@
+services:
+#    recon.example:
+#        class: ReconBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]
