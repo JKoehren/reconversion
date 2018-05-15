@@ -25,70 +25,70 @@ class User extends BaseUser
     /**
      * @var int
      *
-     * @ORM\Column(name="categorie", type="integer")
+     * @ORM\Column(name="categorie", type="integer", nullable=true, options={"default" : 1})
      */
     private $categorie;
 
     /**
      * @var bool
      *
-     * @ORM\Column(name="civilite", type="boolean", options={"default" : 0})
+     * @ORM\Column(name="civilite", type="boolean", nullable=true, options={"default" : 0})
      */
     private $civilite;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="dateDeNaissance", type="date")
+     * @ORM\Column(name="dateDeNaissance", type="date", nullable=true)
      */
     private $dateDeNaissance;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="adresse", type="string", length=255)
+     * @ORM\Column(name="adresse", type="string", length=255, nullable=true)
      */
     private $adresse;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="codePostal", type="string", length=5)
+     * @ORM\Column(name="codePostal", type="string", length=5, nullable=true)
      */
     private $codePostal;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="ville", type="string", length=255)
+     * @ORM\Column(name="ville", type="string", length=255, nullable=true)
      */
     private $ville;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="tel", type="string", length=255)
+     * @ORM\Column(name="tel", type="string", length=255, nullable=true)
      */
     private $tel;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="pass", type="string", length=255)
+     * @ORM\Column(name="pass", type="string", length=255, nullable=true)
      */
     private $pass;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="nom", type="string", length=255)
+     * @ORM\Column(name="nom", type="string", length=255, nullable=true)
      */
     private $nom;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="prenom", type="string", length=255)
+     * @ORM\Column(name="prenom", type="string", length=255, nullable=true)
      */
     private $prenom;
     

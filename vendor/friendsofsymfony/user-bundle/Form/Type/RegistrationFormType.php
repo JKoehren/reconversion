@@ -15,6 +15,9 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -58,11 +61,15 @@ class RegistrationFormType extends AbstractType
                 'choices' => array(
                     'Mr' => 1,
                     'Mme' => 0
-                )
+                ),
                 'required' => true,
                 'multiple' => false,
                 'expanded'=> true
             ))
+            ->add('dateDeNaissance', DateType::class, array('label' => 'Date de Naissance', 'translation_domain' => 'FOSUserBundle'))
+            ->add('adresse', TextareaType::class, array('label' => 'form.adresse', 'translation_domain' => 'FOSUserBundle'))
+            ->add("codePostal", TextType::class, array('label' => 'Code Postal', 'translation_domain' => 'FOSUserBundle'))
+             ->add("ville", TextType::class, array('label' => 'Ville', 'translation_domain' => 'FOSUserBundle'))           
             ->add('plainPassword', RepeatedType::class, array(
                 'type' => PasswordType::class,
                 'options' => array(

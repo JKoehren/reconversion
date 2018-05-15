@@ -8,6 +8,10 @@ app:
 
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"
+    
+inscription_etape_1:
+    resource: "@FOSUserBundle/Resources/config/routing/registration.xml"
+    prefix: /Inscription
 
 fos_user_profile:
     resource: "@FOSUserBundle/Resources/config/routing/profile.xml"

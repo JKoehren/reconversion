@@ -123,6 +123,53 @@ class RegistrationController extends Controller
             'user' => $user,
         ));
     }
+    
+    public function InscriptionAction(Request $request, $token)
+    {
+        $user = $this->userManager->createUser();
+        $user->setEnabled(true);
+
+        $event = new GetResponseUserEvent($user, $request);
+        $this->eventDispatcher->dispatch(FOSUserEvents::REGISTRATION_INITIALIZE, $event);
+
+        if (null !== $event->getResponse()) {
+            return $event->getResponse();
+        }
+
+        $form = $this->formFactory->createForm();
+        $form->setData($user);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted()) {
+            if ($form->isValid()) {
+                $event = new FormEvent($form, $request);
+                $this->eventDispatcher->dispatch(FOSUserEvents::REGISTRATION_SUCCESS, $event);
+
+                $this->userManager->updateUser($user);
+
+                if (null === $response = $event->getResponse()) {
+                    $url = $this->generateUrl('fos_user_registration_confirmed');
+                    $response = new RedirectResponse($url);
+                }
+
+                $this->eventDispatcher->dispatch(FOSUserEvents::REGISTRATION_COMPLETED, new FilterUserResponseEvent($user, $request, $response));
+
+                return $response;
+            }
+
+            $event = new FormEvent($form, $request);
+            $this->eventDispatcher->dispatch(FOSUserEvents::REGISTRATION_FAILURE, $event);
+
+            if (null !== $response = $event->getResponse()) {
+                return $response;
+            }
+        }
+
+        return $this->render('@FOSUser/Registration/InscriptionStep1.html.twig', array(
+            'form' => $form->createView(),
+        ));
+    }
 
     /**
      * Receive the confirmation token from user email provider, login the user.
