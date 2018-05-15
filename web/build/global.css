@@ -1,0 +1,62 @@
+body {
+    font: 1em/1.5 lato, corbel, verdana, arial, sans-serif;
+}
+a {
+    text-decoration: none;
+    color: black;
+}
+.nav-bar {
+    display: flex;
+    list-style: none;
+    justify-content: space-around;
+    padding-left: 40%;
+    flex-wrap: wrap;
+}
+
+.nav-bar li {
+    padding: 5px 10px;
+    border-radius: 1.1em;
+    border: 1px solid transparent;
+}
+
+.nav-bar li:hover {
+     border-color: #c12451;
+}
+
+.nav-bar li:hover a {
+    color: #c12451;
+}
+
+.nav-bar .connect {
+    background-color: #407491;
+}
+
+.nav-bar .connect a {
+    color: white;
+}
+
+.nav-bar .connect:hover {
+    background-color: white;
+    border-color: 
+}
+
+.nav-bar .connect:hover a {
+    color: #407491;
+}
+
+.first-bloc {
+    background-color: #407491;
+    text-align: center;
+    padding: 30px 0 50px;
+}
+
+.first-bloc p {
+    color: white;
+    font-size: 1.8em;
+    padding: 10px;
+    margin: none;
+}
+
+.bold {
+    font-weight: bold;
+}

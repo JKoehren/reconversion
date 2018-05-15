@@ -1,0 +1,43 @@
+{# app/Resources/views/header.html.twig #}
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>{% block title %}{% endblock %}</title>
+    {% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('build/global.css') }}" /> {% endblock %}
+</head>
+
+<body>
+    <ul class="nav-bar">
+        <li>
+           <a href="#">Notre démarche</a> 
+        </li>
+        <li>
+           <a href="#">Les étapes</a> 
+        </li>
+        <li>
+           <a href="#">Témoignages</a> 
+        </li>
+        <li>
+           <a href="#">FAQ</a> 
+        </li>
+        <li>
+           <a href="#">Liens utiles</a> 
+        </li>
+        <li>
+           <a href="#">Contact</a> 
+        </li>
+        <li class="connect">
+           <a href="#">Connexion</a> 
+        </li>
+    </ul>
+    <div>
+        {% block body %}{% endblock %} {% block javascripts %}
+    </div>
+    <script src="{{ asset('build/app.js') }}"></script>
+    {% endblock %}
+</body>
+
+</html>
