@@ -32,7 +32,7 @@ class User extends BaseUser
     /**
      * @var bool
      *
-     * @ORM\Column(name="civilite", type="boolean")
+     * @ORM\Column(name="civilite", type="boolean", options={"default" : 0})
      */
     private $civilite;
 
