@@ -1,11 +1,3 @@
-userlist:
-    resource: "ReconBundle/Controller/UserType"
-    prefix: /userlist
-    
-inscription:
-    resource: "ReconBundle/Controller/UserType"
-    prefix: /ajouter
-
 recon:
     resource: "@ReconBundle/Resources/config/routing.yml"
     prefix:   /
