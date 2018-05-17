@@ -1,10 +1,18 @@
 body {
     font: 1em/1.5 lato, corbel, verdana, arial, sans-serif;
 }
+
 a {
     text-decoration: none;
     color: black;
 }
+
+.btn {
+    border-radius: 1.1em;
+    padding: 10px 30px;
+    border: 1px solid transparent;
+}
+
 .nav-bar {
     display: flex;
     list-style: none;
@@ -57,15 +65,13 @@ a {
 }
 
 .first-bloc .signup {
-    background: #c12451;
+    background-color: #c12451;
     border: none;
     color: white;
-    padding: 10px 30px;
-    border-radius: 1.1em;
 }
 
 .first-bloc .signup:hover {
-    background: #901a3c;
+    background-color: #901a3c;
 }
 
 .wrap {
@@ -80,10 +86,14 @@ a {
     justify-content: space-between;
 }
 
+.little-flex {
+    margin-bottom: 30px;
+}
+
 .little-flex > * {
     width: 25%;
     font-size: 1.2em;
-    height: 120px;
+    height: 100px;
 }
 
 .bottom-bar {
@@ -122,7 +132,7 @@ a {
 }
 
 .testimony .item {
-    background: white;
+    background-color: white;
     margin : 20px;
     position: relative;
 }
@@ -144,14 +154,43 @@ a {
 }
 
 .testimony a {
-    float: right;
     color: white;
-    border: 1px solid white;
-    border-radius: 1.1em;
-    padding: 10px 30px;
+    border-color: white;
+    float: right;
 }
 
 .testimony a:hover {
     background-color: white;
     color: #c12451;
+}
+
+.contact {
+    background-color: #dfe5e6;
+    padding-bottom: 100px;
+}
+
+.contact .wrap {
+    text-align: left;
+}
+
+.contact .wrap > * {
+    width: 100%;
+}
+
+.contact a {
+    width: auto !important;
+    float: right;
+    color: #407491;
+    border-color: #407491;
+}
+.contact a:hover {
+    color: white;
+    background-color: #407491;
+}
+
+input, textarea {
+    padding: 0.7em 1em;
+    margin: 10px;
+    border-radius: 0.3em;
+    border: 1px solid #c7c7c7;
 }
