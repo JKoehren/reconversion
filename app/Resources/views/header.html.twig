@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="UTF-8" />
-    <title>{% block title %}{% endblock %}</title>
+    <title>{% block title %}{% endblock %} - Reconversion Pro</title>
     {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('build/global.css') }}" /> {% endblock %}
 </head>
@@ -30,7 +30,7 @@
            <a href="#">Contact</a> 
         </li>
         <li class="connect">
-           <a href="#">Connexion</a> 
+           <a href="./profile">Connexion</a> 
         </li>
     </ul>
     <div>
@@ -39,5 +39,11 @@
     <script src="{{ asset('build/app.js') }}"></script>
     {% endblock %}
 </body>
+    
+<footer>
+    <div class="footer">
+        UPMC - Formation continue / KOEHREN & PAVELEK / 2018 <a href="#">Mentions légales</a>
+    </div>
+</footer>
 
 </html>

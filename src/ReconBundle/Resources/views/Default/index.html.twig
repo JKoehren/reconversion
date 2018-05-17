@@ -1,12 +1,36 @@
 {# src/ReconBundle/Resources/views/Default/index.html.twig #}
 {% extends "header.html.twig" %}
-{% block title %}Hello{% endblock %}
+{% block title %}Accueil{% endblock %}
 {% block body %}
 
 <div class="first-bloc">
     <p>votre métier se transforme</p>
     <p class="bold">Devenez acteur de votre mobilité professionnelle</p>
-    <button class="signup">INSCRIVEZ-VOUS</button>
+    <a class="signup" href="./inscription">INSCRIVEZ-VOUS</a>
+</div>
+<div class="wrap">
+    <h2>Avançons ensemble sur votre projet professionnel</h2>
+    <div class="flex little-flex">
+        <p>Faire le point sur votre parcours</p>
+        <p class="bottom-bar">Définir le plan d’action</p>
+        <p>Réussir votre transition professionnelle</p>
+    </div>
+</div>
+<div class="testimony">
+    <div class="wrap">
+        <h2 class="bold">Les témoignages</h2>
+        <div class="items">
+            <div class="item">
+                <img src="http://www.edu.upmc.fr/fsm/i02/symfony3/projet_Reconversion/images/101.jpg" alt="P.">
+                <p>" Après le bac j’ai obtenu un BTS orienté vente et négociation. Je voulais rapidement travailler et gagner ma vie. J’ai trouvé une mission dans un labor... "<span>Carole P.</span></p>
+            </div>
+            <div class="item">
+                <img src="http://www.edu.upmc.fr/fsm/i02/symfony3/projet_Reconversion/images/171.jpg" alt="R.">
+                <p>" Après une licence scientifique générale, je voulais intégrer la vie professionnelle. J’ai pensé que la visite médicale me conviendrait et pendant quel... "<span>Vincent R.</span></p>
+            </div>
+        </div>
+        <a href="#">Tous les témoignages</a>
+    </div>
 </div>
 
 

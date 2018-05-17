@@ -37,11 +37,11 @@ a {
 
 .nav-bar .connect:hover {
     background-color: white;
-    border-color: 
+    border-color:#407491;
 }
 
 .nav-bar .connect:hover a {
-    color: #407491;
+    color:  #407491;
 }
 
 .first-bloc {
@@ -53,10 +53,105 @@ a {
 .first-bloc p {
     color: white;
     font-size: 1.8em;
-    padding: 10px;
     margin: none;
+}
+
+.first-bloc .signup {
+    background: #c12451;
+    border: none;
+    color: white;
+    padding: 10px 30px;
+    border-radius: 1.1em;
+}
+
+.first-bloc .signup:hover {
+    background: #901a3c;
+}
+
+.wrap {
+    max-width: 1000px;
+    padding: 3em 3em 0;
+    margin: auto;
+    text-align: center;
+}
+
+.flex {
+    display: flex;
+    justify-content: space-between;
+}
+
+.little-flex > * {
+    width: 25%;
+    font-size: 1.2em;
+    height: 120px;
+}
+
+.bottom-bar {
+    border-bottom: 2px solid #c12451;
 }
 
 .bold {
     font-weight: bold;
+}
+
+.footer {
+    padding: 15px;
+    text-align: center;
+    background-color: #407491;
+    color: white;
+}
+.footer a {
+    padding-left: 20px;
+    color: white;
+    text-decoration: underline;
+}
+
+.testimony {
+    background-color: #c12451;
+    padding-bottom: 100px;
+}
+.testimony .wrap {
+    text-align: left;
+}
+.testimony .bold {
+    color: white;
+    margin-left: 20px;
+}
+.testimony .items {
+    display: flex;
+}
+
+.testimony .item {
+    background: white;
+    margin : 20px;
+    position: relative;
+}
+
+.testimony img {
+    position: absolute;
+    margin: 15px;
+    width: 100px;
+}
+
+.testimony p {
+    margin-left: 140px;
+}
+
+.testimony span {
+    display: block;
+    font-style: italic;
+    margin-left: 200px;
+}
+
+.testimony a {
+    float: right;
+    color: white;
+    border: 1px solid white;
+    border-radius: 1.1em;
+    padding: 10px 30px;
+}
+
+.testimony a:hover {
+    background-color: white;
+    color: #c12451;
 }
