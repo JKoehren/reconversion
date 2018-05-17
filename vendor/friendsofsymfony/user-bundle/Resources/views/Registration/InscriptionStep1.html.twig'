@@ -1,6 +1,6 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
-{{ form_start(form, {'method': 'post', 'action': path('Inscription'), 'attr': {'class': 'RegistrationFormType'}}) }}
+{{ form_start(form, {'method': 'post', 'action': path('inscription'), 'attr': {'class': 'RegistrationFormType'}}) }}
     {{ form_widget(form) }}
     <div>
         <input type="submit" value="{{ 'registration.submit'|trans }}" />

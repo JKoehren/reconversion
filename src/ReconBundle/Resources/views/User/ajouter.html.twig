@@ -1,0 +1,10 @@
+{# src/ReconBundle/Resources/views/User/ajouter.html.twig #} 
+<h1>Ajouter un utilisateur</h1> 
+{% if message %} 
+<p>{{ message }}</p> 
+{% endif %} 
+<div> 
+{{ form(form) }} 
+</div> 
+<p><a href="{{ path('userlist') }}">Retour à la liste des 
+utilisateurs</a></p> 

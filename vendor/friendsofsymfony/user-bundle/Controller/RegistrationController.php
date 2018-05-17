@@ -124,7 +124,7 @@ class RegistrationController extends Controller
         ));
     }
     
-    public function InscriptionAction(Request $request, $token)
+    public function inscriptionAction(Request $request, $token)
     {
         $user = $this->userManager->createUser();
         $user->setEnabled(true);

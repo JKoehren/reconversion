@@ -1,3 +1,11 @@
+userlist:
+    defaults: { _controller: ReconBundle:UserType:userlist}
+    path: /userlist
+    
+inscription:
+    defaults: { _controller: ReconBundle:UserType:ajouter}
+    path: /inscription
+    
 recon_homepage:
     path:     /
     defaults: { _controller: ReconBundle:Default:index }

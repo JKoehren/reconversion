@@ -8,8 +8,8 @@
         <default key="_controller">fos_user.registration.controller:registerAction</default>
     </route>
     
-    <route id="Inscription" path="/Inscription" methods="GET POST">
-        <default key="_controller">RegistrationFormType.controller:InscriptionAction</default>
+    <route id="inscription" path="/inscription" methods="GET POST">
+        <default key="_controller">RegistrationFormType.controller:inscriptionAction</default>
     </route>
 
     <route id="fos_user_registration_check_email" path="/check-email" methods="GET">
