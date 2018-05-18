@@ -8,8 +8,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType; 
 use Symfony\Component\Form\Extension\Core\Type\FormType; 
 use Symfony\Component\Form\Extension\Core\Type\SubmitType; 
-use Symfony\Component\Form\Extension\Core\Type\TextType; 
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType; 
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class UserType extends AbstractType
 {
@@ -18,7 +19,7 @@ class UserType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('nom, TextType::class')->add('prenom, TextType::class')->add('mail');
+        $builder->add('nom, TextType::class')->add('prenom, TextType::class')->add('mail')->add('save', SubmitType::class);
     }/**
      * {@inheritdoc}
      */

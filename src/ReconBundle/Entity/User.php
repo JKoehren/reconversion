@@ -1,6 +1,7 @@
 <?php
 
 namespace ReconBundle\Entity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -102,13 +103,6 @@ class User
     * @ORM\OneToMany(targetEntity="Situation", mappedBy="user")
     */
     private $situations;
-
-    public function __construct()
-    {
-        parent::__construct();
-        $this->situations = new \Doctrine\Common\Collections\ArrayCollection();
-        // your own logic
-    }
     
     /**
      * Get id
