@@ -50,4 +50,9 @@ class UserController extends Controller
         ); 
     } 
 
+    public function userlistAction(Request $request)
+    {
+         return $this->render('@Recon/User/userlist.html.twig');
+    }
+
 }

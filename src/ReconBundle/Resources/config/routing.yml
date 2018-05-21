@@ -1,3 +1,7 @@
+userlist:
+    path: /userlist
+    defaults: {_controller: ReconBundle:User:userlist}
+
 inscription:
     path: /inscription
     defaults: { _controller: ReconBundle:User:ajouter}
