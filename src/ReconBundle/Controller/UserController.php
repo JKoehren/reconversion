@@ -36,10 +36,10 @@ class UserController extends Controller
                 $em = $this->getDoctrine()->getManager();        
                 $em->persist($user);    
                 $em->flush(); 
-                $request->getSession()->getFlashBag()->add('notice', 'Nouvel utilisateur enregistré.'); 
+                $request->getSession()->getFlashBag()->add('notice', 'Nouvel utilisateur en attente.'); 
             // On redirige vers la liste des utilisateur 
 
-                return $this->redirectToRoute('userlist', array('id' => $user->getId())); 
+                return $this->redirectToRoute('mail', array('id' => $user->getId())); 
             } 
             
         }  
@@ -48,7 +48,18 @@ class UserController extends Controller
         return $this->render('@Recon/User/ajouter.html.twig', 
         array('form' => $form->createView(), 'message' => $message) 
         ); 
-    } 
+    }
+
+    public function mailAction(Request $request){
+        
+        $repository = $this
+        ->getDoctrine()
+        ->getManager()
+        ->getRepository('ReconBundle:User');
+        $user = $repository->find($_GET['id']);
+
+        return $this->render('@Recon/User/mail.html.twig', array("user" => $user));
+    }
 
     public function userlistAction(Request $request)
     {
