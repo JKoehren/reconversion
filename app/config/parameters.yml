@@ -6,7 +6,7 @@ parameters:
     database_user: root
     database_password: mysql
     mailer_transport: smtp
-    mailer_host: 127.0.0.1
-    mailer_user: null
-    mailer_password: null
+    mailer_host: auth.smtp.1and1.fr
+    mailer_user: Reconversion Pro
+    mailer_password: Reconversion2018.
     secret: ThisTokenIsNotSoSecretChangeIt

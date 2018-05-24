@@ -6,6 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface; 
 use Symfony\Component\OptionsResolver\OptionsResolver; 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -34,15 +35,35 @@ class UserController extends Controller
             if ($form->isValid()) { 
             // On persiste $patient    
                 $em = $this->getDoctrine()->getManager();        
-                $em->persist($user);    
-                $em->flush(); 
+                $em->persist($user); 
+                try {
+                    $em->flush(); 
+                } 
+                catch (\PDOException $e){
+                    echo "erreur personnalisée";
+                }  
                 $request->getSession()->getFlashBag()->add('notice', 'Nouvel utilisateur en attente.'); 
             // On redirige vers la liste des utilisateur 
 
+                $mailer = $this->get('mailer');
+                $content = (new \Swift_Message('Confirmation inscription'))
+                ->setFrom('reconv@santhor.com')
+                ->setTo($user->getEmail())
+                ->setBody(
+                    $this->renderView(
+                        // app/Resources/views/Emails/registration.html.twig
+                        '@Recon/User/mail.html.twig',
+                        array('nom' => $user->getNom(),
+                              'prenom' => $user->getPrenom())
+                    ),
+                    'text/html'
+                );
+                $mailer->send($content);
                 return $this->redirectToRoute('mail', array('id' => $user->getId())); 
             } 
             
-        }  
+        }
+
         
         $message='';  
         return $this->render('@Recon/User/ajouter.html.twig', 
