@@ -43,11 +43,20 @@ class UserController extends Controller
                     echo "erreur personnalisée";
                 }  
                 $request->getSession()->getFlashBag()->add('notice', 'Nouvel utilisateur en attente.'); 
-            // On redirige vers la liste des utilisateur 
+             On redirige vers la liste des utilisateur 
+                 
+                 // ceci pue du cul :
+                //$mailer = $this->get('mailer');
 
-                $mailer = $this->get('mailer');
+                $transport = (new \Swift_SmtpTransport( 'auth.smtp.1and1.fr', 587 ))
+                  ->setUsername("reconv@santhor.com")
+                  ->setPassword("Reconversion2018.")
+                ;
+                $mailer = new \Swift_Mailer($transport);
+                
+                
                 $content = (new \Swift_Message('Confirmation inscription'))
-                ->setFrom('reconv@santhor.com')
+                ->setFrom('no-reply@reconv.santhor.com')
                 ->setTo($user->getEmail())
                 ->setBody(
                     $this->renderView(

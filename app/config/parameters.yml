@@ -7,6 +7,7 @@ parameters:
     database_password: mysql
     mailer_transport: smtp
     mailer_host: auth.smtp.1and1.fr
-    mailer_user: Reconversion Pro
+    mailer_user: reconv@santhor.com
     mailer_password: Reconversion2018.
+    mailer_port: 587
     secret: ThisTokenIsNotSoSecretChangeIt
