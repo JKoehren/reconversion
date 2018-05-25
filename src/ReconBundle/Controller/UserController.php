@@ -69,8 +69,8 @@ class UserController extends Controller
 
         
         $message='';  
-        return $this->render('@Recon/User/ajouter.html.twig', 
-        array('form' => $form->createView(), 'message' => $message) 
+        return $this->render('@Recon/User/form.html.twig', 
+        array('form' => $form->createView(), 'message' => $message, 'title' => "Inscription") 
         ); 
     }
 
@@ -85,6 +85,8 @@ class UserController extends Controller
         ->getRepository('ReconBundle:User');
         $form = $this->createForm(Userlog::class, $user);  
         
+        $message='';
+        
         if ($request->isMethod('POST')) {
         // L'ordre ci-dessous place les données du formulaire dans l'entité $patient
             $form->handleRequest($request); 
@@ -94,29 +96,29 @@ class UserController extends Controller
                 $em->persist($user); 
 
                 $userConfirm = $repository->findOneByEmail($user->getEmail());
+                
+                if ($userConfirm) {
+                
+                    if($user->getPass() === $userConfirm->getPass()){
+                        // var_dump($userConfirm->getId());die;
+                        $message='Connexion réussie';  
+                        return $this->render('@Recon/User/success.html.twig', 
+                        array('id' => $userConfirm->getId(), 'message' => $message) 
+                        ); 
 
-                if($user->getPass() === $userConfirm->getPass()){
-                    // var_dump($userConfirm->getId());die;
-                    $message='Connexion réussie';  
-                    return $this->render('@Recon/Default/index.html.twig', 
-                    array('id' => $userConfirm->getId(), 'message' => $message) 
-                    ); 
-
-                }
-                else {
-                    $message='mot de passe incorrect';  
-                    return $this->render('@Recon/User/login.html.twig', 
-                    array('form' => $form->createView(), 'message' => $message) 
-                    ); 
+                    } else {
+                        $message = 'Mot de passe incorrect';  
+                    }
+                } else {
+                    $message = 'Email incorrect';
                 }
 
             } 
             
         }
 
-        $message='';  
-        return $this->render('@Recon/User/login.html.twig', 
-        array('form' => $form->createView(), 'message' => $message) 
+        return $this->render('@Recon/User/form.html.twig', 
+        array('form' => $form->createView(), 'message' => $message, 'title' => 'Connexion') 
         ); 
 
     }

@@ -21,7 +21,7 @@ class Userlog extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('email', EmailType::class)->add('pass', PasswordType::class)->add('save', SubmitType::class);
+        $builder->add('email', EmailType::class, ['attr' => ['placeholder' => 'Adresse Mail'], 'label' => false])->add('pass', PasswordType::class, ['attr' => ['placeholder' => 'Mot de Passe'], 'label' => false])->add('save', SubmitType::class, ['label' => 'Valider', 'attr' => ['class' => 'btn']]);
     }/**
      * {@inheritdoc}
      */

@@ -202,20 +202,20 @@ input, textarea {
     border: 1px solid #c7c7c7;
 }
 
-.inscription input {
+.form input {
     width: 250px;
 }
-.inscription .connect {
+.form .connect {
     display: inline-block;
 }
-.inscription .contact {
+.form .contact {
     background: none;
     display: inline-block;
 }
-.inscription .contact a {
+.form .contact a {
     color: #c12451;
     border-color: #c12451;
 }
-.inscription .contact a:hover {
+.form .contact a:hover {
     background-color: #c12451;
 }
