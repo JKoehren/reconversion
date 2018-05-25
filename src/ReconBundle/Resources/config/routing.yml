@@ -15,5 +15,5 @@ inscription:
     defaults: { _controller: ReconBundle:User:ajouter}
     
 recon_homepage:
-    path:     /{id}
+    path:     /
     defaults: { _controller: ReconBundle:Default:index }
