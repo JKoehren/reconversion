@@ -43,17 +43,12 @@ class UserController extends Controller
                     echo "erreur personnalisée";
                 }  
                 $request->getSession()->getFlashBag()->add('notice', 'Nouvel utilisateur en attente.'); 
-             //On redirige vers la liste des utilisateur 
-                 
-                 // ceci pue du cul :
-                //$mailer = $this->get('mailer');
 
                 $transport = (new \Swift_SmtpTransport( 'auth.smtp.1and1.fr', 587 ))
                   ->setUsername("reconv@santhor.com")
-                  ->setPassword("Reconversion2018.")
+                  ->setPassword("Reconvpro2018")
                 ;
                 $mailer = new \Swift_Mailer($transport);
-                
                 
                 $content = (new \Swift_Message('Confirmation inscription'))
                 ->setFrom('no-reply@reconv.santhor.com')
@@ -62,22 +57,68 @@ class UserController extends Controller
                     $this->renderView(
                         // app/Resources/views/Emails/registration.html.twig
                         '@Recon/User/mail.html.twig',
-                        array('nom' => $user->getNom(),
-                              'prenom' => $user->getPrenom())
+                        array('id' => $user->getId())
                     ),
                     'text/html'
                 );
                 $mailer->send($content);
                 return $this->redirectToRoute('mail', array('id' => $user->getId())); 
-            } 
-            
-        }
+                } 
+                
+            }
 
         
         $message='';  
         return $this->render('@Recon/User/ajouter.html.twig', 
         array('form' => $form->createView(), 'message' => $message) 
         ); 
+    }
+
+    public function loginAction(Request $request)
+
+    {  
+
+        $user = new User();  
+        $repository = $this
+        ->getDoctrine()
+        ->getManager()
+        ->getRepository('ReconBundle:User');
+        $form = $this->createForm(Userlog::class, $user);  
+        
+        if ($request->isMethod('POST')) {
+        // L'ordre ci-dessous place les données du formulaire dans l'entité $patient
+            $form->handleRequest($request); 
+        // Si le formulaire est valide (les valeurs entrées sont correctes)   
+            if ($form->isValid()) { 
+                $em = $this->getDoctrine()->getManager(); 
+                $em->persist($user); 
+
+                $userConfirm = $repository->findOneByEmail($user->getEmail());
+
+                if($user->getPass() === $userConfirm->getPass()){
+                    // var_dump($userConfirm->getId());die;
+                    $message='Connexion réussie';  
+                    return $this->render('@Recon/Default/index.html.twig', 
+                    array('id' => $userConfirm->getId(), 'message' => $message) 
+                    ); 
+
+                }
+                else {
+                    $message='mot de passe incorrect';  
+                    return $this->render('@Recon/User/login.html.twig', 
+                    array('form' => $form->createView(), 'message' => $message) 
+                    ); 
+                }
+
+            } 
+            
+        }
+
+        $message='';  
+        return $this->render('@Recon/User/login.html.twig', 
+        array('form' => $form->createView(), 'message' => $message) 
+        ); 
+
     }
 
     public function mailAction(Request $request){

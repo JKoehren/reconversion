@@ -1,6 +1,6 @@
 <?php
 
-namespace ReconBundle\Controller;
+namespace ReconBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -10,6 +10,8 @@ use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType; 
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType; 
+use Symfony\Component\Form\Extension\Core\Type\EmailType; 
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class UserType extends AbstractType
@@ -19,7 +21,7 @@ class UserType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('nom', TextType::class)->add('prenom', TextType::class)->add('email', TextType::class)->add('save', SubmitType::class);
+        $builder->add('email', EmailType::class)->add('pass', PasswordType::class)->add('save', SubmitType::class);
     }/**
      * {@inheritdoc}
      */
@@ -29,6 +31,7 @@ class UserType extends AbstractType
             'data_class' => 'ReconBundle\Entity\User'
         ));
     }
+
     /**
      * {@inheritdoc}
      */
