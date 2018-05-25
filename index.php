@@ -1,5 +1,5 @@
 <?php
 
-header("location: http://localhost/reconversion/web");
+header("location: web");
 
 ?>
