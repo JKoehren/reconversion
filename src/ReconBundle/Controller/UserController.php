@@ -51,7 +51,7 @@ class UserController extends Controller
                 $mailer = new \Swift_Mailer($transport);
                 
                 $content = (new \Swift_Message('Confirmation inscription'))
-                ->setFrom('no-reply@reconv.santhor.com')
+                ->setFrom('reconv@santhor.com')
                 ->setTo($user->getEmail())
                 ->setBody(
                     $this->renderView(

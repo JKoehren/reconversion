@@ -1,10 +1,16 @@
-{# src/ReconBundle/Resources/views/User/ajouter.html.twig #} 
-<h1>Ajouter un utilisateur</h1> 
+{# src/ReconBundle/Resources/views/User/ajouter.html.twig #}
+{% extends "header.html.twig" %}
+{% block title %}Inscription{% endblock %}
+{% block body %}
+
+<div class="wrap inscription">
 {% if message %} 
 <p>{{ message }}</p> 
 {% endif %} 
 <div> 
 {{ form(form) }} 
-</div> 
-<p><a href="{{ path('userlist') }}">Retour à la liste des 
-utilisateurs</a></p> 
+</div>
+<p class="contact"><a href="../" class="btn">Retour à l'accueil</a></p>
+</div>
+
+{% endblock %}

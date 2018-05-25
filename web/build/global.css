@@ -9,8 +9,11 @@ a {
 
 .btn {
     border-radius: 1.1em;
-    padding: 10px 30px;
     border: 1px solid transparent;
+    padding: 5px 10px;
+}
+.large-btn {
+    padding: 10px 30px;
 }
 
 .nav-bar {
@@ -21,7 +24,7 @@ a {
     flex-wrap: wrap;
 }
 
-.nav-bar li {
+.nav-bar li, .connect {
     padding: 5px 10px;
     border-radius: 1.1em;
     border: 1px solid transparent;
@@ -35,20 +38,24 @@ a {
     color: #c12451;
 }
 
-.nav-bar .connect {
+.connect {
     background-color: #407491;
 }
 
-.nav-bar .connect a {
+.connect .btn {
     color: white;
+    background: none;
+}
+.connect button.btn {
+    cursor: pointer;
 }
 
-.nav-bar .connect:hover {
+.connect:hover {
     background-color: white;
-    border-color:#407491;
+    border-color: #407491 !important;
 }
 
-.nav-bar .connect:hover a {
+.connect:hover .btn {
     color:  #407491;
 }
 
@@ -184,7 +191,7 @@ a {
     border-color: #407491;
 }
 .contact a:hover {
-    color: white;
+    color: white !important;
     background-color: #407491;
 }
 
@@ -193,4 +200,22 @@ input, textarea {
     margin: 10px;
     border-radius: 0.3em;
     border: 1px solid #c7c7c7;
+}
+
+.inscription input {
+    width: 250px;
+}
+.inscription .connect {
+    display: inline-block;
+}
+.inscription .contact {
+    background: none;
+    display: inline-block;
+}
+.inscription .contact a {
+    color: #c12451;
+    border-color: #c12451;
+}
+.inscription .contact a:hover {
+    background-color: #c12451;
 }
