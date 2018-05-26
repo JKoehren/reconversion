@@ -14,6 +14,10 @@ inscription:
     path: /inscription
     defaults: { _controller: ReconBundle:User:ajouter}
     
+deconnexion:
+    path: /deco
+    defaults: { _controller: ReconBundle:Default:unconnect }
+    
 recon_homepage:
     path:     /
     defaults: { _controller: ReconBundle:Default:index }

@@ -4,17 +4,21 @@
 {% block body %}
 
 <div class="first-bloc">
+    {% if id is defined %} 
+        <h3>{ id }</h3>
+    {% else %}
     <p>votre métier se transforme</p>
     <p class="bold">Devenez acteur de votre mobilité professionnelle</p>
     <a class="signup btn large-btn" href="./inscription">INSCRIVEZ-VOUS</a>
+    {% endif %}
 </div>
 <div class="wrap">
-    <h2>Avançons ensemble sur votre projet professionnel</h2>
-    <div class="flex little-flex">
-        <p>Faire le point sur votre parcours</p>
-        <p class="bottom-bar">Définir le plan d’action</p>
-        <p>Réussir votre transition professionnelle</p>
-    </div>
+        <h2>Avançons ensemble sur votre projet professionnel</h2>
+        <div class="flex little-flex">
+            <p>Faire le point sur votre parcours</p>
+            <p class="bottom-bar">Définir le plan d’action</p>
+            <p>Réussir votre transition professionnelle</p>
+        </div>
 </div>
 <div class="testimony">
     <div class="wrap">

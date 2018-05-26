@@ -1,6 +1,7 @@
 <?php
 
 namespace ReconBundle\Controller;
+
 use ReconBundle\Entity\User; 
 use Symfony\Component\Form\AbstractType; 
 use Symfony\Component\Form\FormBuilderInterface; 
@@ -16,16 +17,27 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType; 
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 
-class UserController extends Controller
-{
-    public function indexAction()
-    {
+class UserController extends Controller {
+    
+    private $_connect;
+    
+    
+    public function __construct() {
+        $this->_connect = false;
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        if (isset($_SESSION['connect'])) {
+            $this->_connect = $_SESSION['connect'];
+        }
+    }
+    
+    
+    public function indexAction() {
         //return $this->render('ReconBundle:Default:index.html.twig');
     }
     
-    public function ajouterAction(Request $request) 
-        
-    {  
+    public function ajouterAction(Request $request)  {  
         $user = new User();  
         $form = $this->createForm(UserType::class, $user);  
         if ($request->isMethod('POST')) {
@@ -57,8 +69,7 @@ class UserController extends Controller
                     $this->renderView(
                         // app/Resources/views/Emails/registration.html.twig
                         '@Recon/User/mail.html.twig',
-                        array('id' => $user->getId())
-                    ),
+                        ["user" => $user]),
                     'text/html'
                 );
                 $mailer->send($content);
@@ -70,7 +81,7 @@ class UserController extends Controller
         
         $message='';  
         return $this->render('@Recon/User/form.html.twig', 
-        array('form' => $form->createView(), 'message' => $message, 'title' => "Inscription") 
+        ['form' => $form->createView(), 'message' => $message, 'title' => "Inscription"]
         ); 
     }
 
@@ -101,10 +112,11 @@ class UserController extends Controller
                 
                     if($user->getPass() === $userConfirm->getPass()){
                         // var_dump($userConfirm->getId());die;
-                        $message='Connexion réussie';  
-                        return $this->render('@Recon/User/success.html.twig', 
-                        array('id' => $userConfirm->getId(), 'message' => $message) 
-                        ); 
+                        $message='Connexion réussie';
+                        $_SESSION['connect'] = $userConfirm->getId();
+                        return $this->render('@Recon/Default/index.html.twig', 
+                        ['message' => $message,'id' =>  $_SESSION['connect']]
+                        );
 
                     } else {
                         $message = 'Mot de passe incorrect';  
@@ -118,7 +130,7 @@ class UserController extends Controller
         }
 
         return $this->render('@Recon/User/form.html.twig', 
-        array('form' => $form->createView(), 'message' => $message, 'title' => 'Connexion') 
+        ['form' => $form->createView(), 'message' => $message, 'title' => 'Connexion']
         ); 
 
     }
@@ -131,7 +143,7 @@ class UserController extends Controller
         ->getRepository('ReconBundle:User');
         $user = $repository->find($_GET['id']);
 
-        return $this->render('@Recon/User/mail.html.twig', array("user" => $user));
+        return $this->render('@Recon/User/mail.html.twig', ["user" => $user]);
     }
 
     public function userlistAction(Request $request)
