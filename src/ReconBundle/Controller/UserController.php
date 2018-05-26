@@ -17,21 +17,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType; 
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 
-class UserController extends Controller {
-    
-    private $_connect;
-    
-    
-    public function __construct() {
-        $this->_connect = false;
-        if (session_status() == PHP_SESSION_NONE) {
-            session_start();
-        }
-        if (isset($_SESSION['connect'])) {
-            $this->_connect = $_SESSION['connect'];
-        }
-    }
-    
+class UserController extends Controller {    
     
     public function indexAction() {
         //return $this->render('ReconBundle:Default:index.html.twig');
@@ -73,7 +59,7 @@ class UserController extends Controller {
                     'text/html'
                 );
                 $mailer->send($content);
-                return $this->redirectToRoute('mail', array('id' => $user->getId())); 
+                return $this->redirectToRoute('mail', ['id' => $user->getId()]); 
                 } 
                 
             }
@@ -111,9 +97,12 @@ class UserController extends Controller {
                 if ($userConfirm) {
                 
                     if($user->getPass() === $userConfirm->getPass()){
-                        // var_dump($userConfirm->getId());die;
+                         if (session_status() == PHP_SESSION_NONE) {
+                                session_start();
+                            }
+                        //var_dump($userConfirm->getId());die;return;
                         $message='Connexion réussie';
-                        $_SESSION['connect'] = $userConfirm->getId();
+                        $_SESSION['connect'] = ['id' => $userConfirm->getId(), 'name' => $userConfirm->getPrenom() . ' ' . $userConfirm->getNom()];
                         return $this->render('@Recon/Default/index.html.twig', 
                         ['message' => $message,'id' =>  $_SESSION['connect']]
                         );
