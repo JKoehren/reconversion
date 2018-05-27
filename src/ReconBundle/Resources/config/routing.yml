@@ -13,6 +13,14 @@ userlist:
 inscription:
     path: /inscription
     defaults: { _controller: ReconBundle:User:ajouter}
+
+inscriptionsuite:
+    path: "/inscriptionsuite/{id}"
+    defaults: {_controller: ReconBundle:User:inscriptionsuite}
+
+situation:
+    path: "/situation/{id}/{type}"
+    defaults: {_controller: ReconBundle:User:situation}
     
 recon_homepage:
     path:     /

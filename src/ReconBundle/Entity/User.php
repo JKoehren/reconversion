@@ -98,6 +98,20 @@ class User
      * @ORM\Column(name="email", type="string", length=255, nullable=true)
      */
     private $email;
+     
+     /**
+     * @var string
+     *
+     * @ORM\Column(name="projet", type="string", length=500, nullable=true)
+     */
+    private $projet;
+
+     /**
+     * @var string
+     *
+     * @ORM\Column(name="attente", type="string", length=500, nullable=true)
+     */
+    private $attente;
     
     /**
     * @ORM\OneToMany(targetEntity="Situation", mappedBy="user")
@@ -376,6 +390,54 @@ class User
     public function getEmail()
     {
         return $this->email;
+    }
+
+    /**
+     * Set projet
+     *
+     * @param string $projet
+     *
+     * @return User
+     */
+    public function setProjet($projet)
+    {
+        $this->projet = $projet;
+
+        return $this;
+    }
+
+    /**
+     * Get projet
+     *
+     * @return string
+     */
+    public function getProjet()
+    {
+        return $this->projet;
+    }
+
+    /**
+     * Set attente
+     *
+     * @param string $attente
+     *
+     * @return User
+     */
+    public function setAttente($attente)
+    {
+        $this->attente = $attente;
+
+        return $this;
+    }
+
+    /**
+     * Get attente
+     *
+     * @return string
+     */
+    public function getAttente()
+    {
+        return $this->attente;
     }
 }
 

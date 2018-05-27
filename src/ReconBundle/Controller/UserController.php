@@ -1,7 +1,9 @@
 <?php
 
 namespace ReconBundle\Controller;
+
 use ReconBundle\Entity\User; 
+use ReconBundle\Entity\Situation;
 use Symfony\Component\Form\AbstractType; 
 use Symfony\Component\Form\FormBuilderInterface; 
 use Symfony\Component\OptionsResolver\OptionsResolver; 
@@ -9,12 +11,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-
-use Symfony\Component\Form\Extension\Core\Type\DateType; 
-use Symfony\Component\Form\Extension\Core\Type\FormType; 
-use Symfony\Component\Form\Extension\Core\Type\SubmitType; 
-use Symfony\Component\Form\Extension\Core\Type\TextType; 
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
 
 class UserController extends Controller
 {
@@ -71,6 +67,79 @@ class UserController extends Controller
         $message='';  
         return $this->render('@Recon/User/form.html.twig', 
         array('form' => $form->createView(), 'message' => $message, 'title' => "Inscription") 
+        ); 
+    }
+
+    public function inscriptionsuiteAction(Request $request, $id){
+        
+        $message='';  
+        $repository = $this
+        ->getDoctrine()
+        ->getManager()
+        ->getRepository('ReconBundle:User');
+        $user = $repository->find($id); 
+        $form = $this->createForm(UserRegister::class, $user);
+
+        if ($request->isMethod('POST')) {
+        // L'ordre ci-dessous place les données du formulaire dans l'entité $patient
+            $form->handleRequest($request); 
+        // Si le formulaire est valide (les valeurs entrées sont correctes)   
+            if ($form->isValid()) { 
+                $em = $this->getDoctrine()->getManager(); 
+                $em->persist($user); 
+                try {
+                    $em->flush(); 
+                } 
+                catch (\PDOException $e){
+                    echo "erreur personnalisée";
+                }  
+
+            }
+            
+        }
+
+        return $this->render('@Recon/User/form.html.twig', 
+        array('form' => $form->createView(), 'message' => $message, 'title' => 'Inscription suite') 
+        ); 
+    }
+
+    public function situationAction(Request $request, $id, $type = null)
+
+    {
+        $situation = new Situation();  
+        $message='';  
+        $repository = $this
+        ->getDoctrine()
+        ->getManager()
+        ->getRepository('ReconBundle:Situation');
+        $repository2 = $this
+        ->getDoctrine()
+        ->getManager()
+        ->getRepository('ReconBundle:User');
+        $user = $repository2->find($id); 
+        $form = $this->createForm(UserSituation1::class, $situation);
+        $situation->setUser($user);
+
+        if ($request->isMethod('POST')) {
+        // L'ordre ci-dessous place les données du formulaire dans l'entité $patient
+            $form->handleRequest($request); 
+        // Si le formulaire est valide (les valeurs entrées sont correctes)   
+            if ($form->isValid()) { 
+                $em = $this->getDoctrine()->getManager(); 
+                $em->persist($situation); 
+                try {
+                    $em->flush(); 
+                } 
+                catch (\PDOException $e){
+                    echo "erreur personnalisée";
+                }  
+
+            }
+            
+        }
+
+        return $this->render('@Recon/User/form.html.twig', 
+        array('form' => $form->createView(), 'message' => $message, 'title' => 'Situation') 
         ); 
     }
 
