@@ -117,7 +117,12 @@ class UserController extends Controller
         ->getManager()
         ->getRepository('ReconBundle:User');
         $user = $repository2->find($id); 
-        $form = $this->createForm(UserSituation1::class, $situation);
+        if ($type == 1){
+            $form = $this->createForm(UserSituation1::class, $situation);
+        }
+        else {
+            $form = $this->createForm(UserSituation2::class, $situation);
+        }
         $situation->setUser($user);
 
         if ($request->isMethod('POST')) {
@@ -125,6 +130,7 @@ class UserController extends Controller
             $form->handleRequest($request); 
         // Si le formulaire est valide (les valeurs entrées sont correctes)   
             if ($form->isValid()) { 
+                $situation->setType($type);
                 $em = $this->getDoctrine()->getManager(); 
                 $em->persist($situation); 
                 try {
@@ -138,8 +144,8 @@ class UserController extends Controller
             
         }
 
-        return $this->render('@Recon/User/form.html.twig', 
-        array('form' => $form->createView(), 'message' => $message, 'title' => 'Situation') 
+        return $this->render('@Recon/User/situation.html.twig', 
+        array('form' => $form->createView(), 'message' => $message, 'title' => 'Situation', 'id' => $id) 
         ); 
     }
 

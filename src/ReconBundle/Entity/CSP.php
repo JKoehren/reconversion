@@ -29,7 +29,7 @@ class CSP
     private $type;
 
     /**
-    * @ORM\OneToMany(targetEntity="Situation", mappedBy="scp")
+    * @ORM\OneToMany(targetEntity="Situation", mappedBy="csp")
     */
     private $situation;
     

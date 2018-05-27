@@ -66,7 +66,7 @@ class Situation
     /**
      * @var bool
      *
-     * @ORM\Column(name="poleemploie", type="boolean", options={"default" : NULL})
+     * @ORM\Column(name="poleemploie", type="boolean")
      */
     private $poleemploie;
 
@@ -369,29 +369,5 @@ class Situation
     public function getTaille()
     {
         return $this->taille;
-    }
-
-    /**
-     * Set poleemploie
-     *
-     * @param boolean $poleemploie
-     *
-     * @return Situation
-     */
-    public function setPoleemploie($poleemploie)
-    {
-        $this->poleemploie = $poleemploie;
-    
-        return $this;
-    }
-
-    /**
-     * Get poleemploie
-     *
-     * @return boolean
-     */
-    public function getPoleemploie()
-    {
-        return $this->poleemploie;
     }
 }

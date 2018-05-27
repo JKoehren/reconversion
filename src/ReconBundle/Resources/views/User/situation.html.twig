@@ -1,0 +1,18 @@
+{# src/ReconBundle/Resources/views/User/Situation.html.twig #}
+{% if id is defined and id %}
+{% extends "header.html.twig" %}
+{% block title %}{{ title }}{% endblock %}
+{% block body %}
+
+<a href="http://localhost/reconversion/web/app_dev.php/situation/{{ id }}/1">En poste</a><a href="http://localhost/reconversion/web/app_dev.php/situation/{{ id }}/0">En recherche</a>
+<div class="wrap form">
+{% if message %} 
+<p>{{ message }}</p> 
+{% endif %} 
+<div> 
+{{ form(form) }} 
+</div>
+<p class="contact"><a href="../" class="btn">Retour à l'accueil</a></p>
+</div>
+
+{% endblock %}

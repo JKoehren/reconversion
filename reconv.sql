@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net
 --
 -- Client :  localhost
--- Généré le :  Lun 14 Mai 2018 à 16:49
--- Version du serveur :  5.6.35
--- Version de PHP :  7.0.16
+-- Généré le :  Dim 27 Mai 2018 à 20:54
+-- Version du serveur :  5.6.37
+-- Version de PHP :  5.6.31
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données :  `Reconversion`
+-- Base de données :  `reconv`
 --
 
 -- --------------------------------------------------------
@@ -29,7 +29,18 @@ SET time_zone = "+00:00";
 CREATE TABLE IF NOT EXISTS `contrat` (
   `id` int(11) NOT NULL,
   `type` varchar(255) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Contenu de la table `contrat`
+--
+
+INSERT INTO `contrat` (`id`, `type`) VALUES
+(1, 'En veille'),
+(2, 'En recherche'),
+(3, 'CDD'),
+(4, 'CDI'),
+(5, 'Intérim');
 
 -- --------------------------------------------------------
 
@@ -40,7 +51,18 @@ CREATE TABLE IF NOT EXISTS `contrat` (
 CREATE TABLE IF NOT EXISTS `c_s_p` (
   `id` int(11) NOT NULL,
   `type` varchar(255) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Contenu de la table `c_s_p`
+--
+
+INSERT INTO `c_s_p` (`id`, `type`) VALUES
+(1, 'employé'),
+(2, 'Agent de maitrise'),
+(3, 'Technicien'),
+(4, 'Cadre'),
+(5, 'Ingénieur');
 
 -- --------------------------------------------------------
 
@@ -51,7 +73,18 @@ CREATE TABLE IF NOT EXISTS `c_s_p` (
 CREATE TABLE IF NOT EXISTS `etudes` (
   `id` int(11) NOT NULL,
   `type` varchar(255) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Contenu de la table `etudes`
+--
+
+INSERT INTO `etudes` (`id`, `type`) VALUES
+(1, 'équivalent au CAP/BEP'),
+(2, 'équivalent au BAC'),
+(3, 'équivalent à un BAC + 2'),
+(4, 'équivalent à un BAC + 3'),
+(5, 'Supérieur à un BAC + 3');
 
 -- --------------------------------------------------------
 
@@ -61,18 +94,26 @@ CREATE TABLE IF NOT EXISTS `etudes` (
 
 CREATE TABLE IF NOT EXISTS `situation` (
   `id` int(11) NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `contrat_id` int(11) DEFAULT NULL,
+  `csp_id` int(11) DEFAULT NULL,
+  `etudes_id` int(11) DEFAULT NULL,
+  `taille_id` int(11) DEFAULT NULL,
+  `type` tinyint(1) NOT NULL,
   `fonction` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `anneeExp` int(11) NOT NULL,
   `nomEntreprise` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `codePostal` varchar(5) COLLATE utf8_unicode_ci NOT NULL,
   `ville` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `contrat_id` int(11) DEFAULT NULL,
-  `scp_id` int(11) DEFAULT NULL,
-  `etudes_id` int(11) DEFAULT NULL,
-  `taille_id` int(11) DEFAULT NULL,
-  `user_id` int(11) DEFAULT NULL,
-  `type` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `poleemploie` tinyint(1) DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Contenu de la table `situation`
+--
+
+INSERT INTO `situation` (`id`, `user_id`, `contrat_id`, `csp_id`, `etudes_id`, `taille_id`, `type`, `fonction`, `anneeExp`, `nomEntreprise`, `codePostal`, `ville`, `poleemploie`) VALUES
+(1, 10, 5, 3, 3, 3, 1, 'Ingénieur', 3, 'UPMC', '75008', 'Paris', 0);
 
 -- --------------------------------------------------------
 
@@ -83,7 +124,19 @@ CREATE TABLE IF NOT EXISTS `situation` (
 CREATE TABLE IF NOT EXISTS `taille` (
   `id` int(11) NOT NULL,
   `type` varchar(255) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Contenu de la table `taille`
+--
+
+INSERT INTO `taille` (`id`, `type`) VALUES
+(1, '1 à 9'),
+(2, '10 à 19'),
+(3, '20 à 49'),
+(4, '50 à 249'),
+(5, '250 à 999'),
+(6, '+ 1000');
 
 -- --------------------------------------------------------
 
@@ -93,28 +146,27 @@ CREATE TABLE IF NOT EXISTS `taille` (
 
 CREATE TABLE IF NOT EXISTS `user` (
   `id` int(11) NOT NULL,
-  `username` varchar(180) COLLATE utf8_unicode_ci NOT NULL,
-  `username_canonical` varchar(180) COLLATE utf8_unicode_ci NOT NULL,
-  `email` varchar(180) COLLATE utf8_unicode_ci NOT NULL,
-  `email_canonical` varchar(180) COLLATE utf8_unicode_ci NOT NULL,
-  `enabled` tinyint(1) NOT NULL,
-  `salt` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `password` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `last_login` datetime DEFAULT NULL,
-  `confirmation_token` varchar(180) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `password_requested_at` datetime DEFAULT NULL,
-  `roles` longtext COLLATE utf8_unicode_ci NOT NULL COMMENT '(DC2Type:array)',
-  `categorie` int(11) NOT NULL,
-  `civilite` tinyint(1) NOT NULL,
-  `dateDeNaissance` date NOT NULL,
-  `adresse` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `codePostal` varchar(5) COLLATE utf8_unicode_ci NOT NULL,
-  `ville` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `tel` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `pass` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `nom` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `prenom` varchar(255) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `email` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `categorie` int(11) DEFAULT '1',
+  `civilite` tinyint(1) DEFAULT '0',
+  `dateDeNaissance` date DEFAULT NULL,
+  `adresse` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `codePostal` varchar(5) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ville` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `tel` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `pass` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `nom` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `prenom` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `projet` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `attente` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Contenu de la table `user`
+--
+
+INSERT INTO `user` (`id`, `email`, `categorie`, `civilite`, `dateDeNaissance`, `adresse`, `codePostal`, `ville`, `tel`, `pass`, `nom`, `prenom`, `projet`, `attente`) VALUES
+(10, 'gilbert@yahoo.com', 1, 0, '1998-08-25', '7 rue des boulets', '75008', 'Paris', '0625020006', '1234', 'roger', 'gilbert', 'Mon projet super complet', 'Mes attentes super exigentes');
 
 --
 -- Index pour les tables exportées
@@ -143,11 +195,11 @@ ALTER TABLE `etudes`
 --
 ALTER TABLE `situation`
   ADD PRIMARY KEY (`id`),
+  ADD KEY `IDX_EC2D9ACAA76ED395` (`user_id`),
   ADD KEY `IDX_EC2D9ACA1823061F` (`contrat_id`),
-  ADD KEY `IDX_EC2D9ACA10D96FEF` (`scp_id`),
   ADD KEY `IDX_EC2D9ACA448A1682` (`etudes_id`),
   ADD KEY `IDX_EC2D9ACAFF25611A` (`taille_id`),
-  ADD KEY `IDX_EC2D9ACAA76ED395` (`user_id`);
+  ADD KEY `IDX_EC2D9ACA73EFFAF6` (`csp_id`);
 
 --
 -- Index pour la table `taille`
@@ -159,10 +211,7 @@ ALTER TABLE `taille`
 -- Index pour la table `user`
 --
 ALTER TABLE `user`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `UNIQ_8D93D64992FC23A8` (`username_canonical`),
-  ADD UNIQUE KEY `UNIQ_8D93D649A0D96FBF` (`email_canonical`),
-  ADD UNIQUE KEY `UNIQ_8D93D649C05FB297` (`confirmation_token`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT pour les tables exportées
@@ -172,32 +221,32 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT pour la table `contrat`
 --
 ALTER TABLE `contrat`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT pour la table `c_s_p`
 --
 ALTER TABLE `c_s_p`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT pour la table `etudes`
 --
 ALTER TABLE `etudes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT pour la table `situation`
 --
 ALTER TABLE `situation`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT pour la table `taille`
 --
 ALTER TABLE `taille`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT pour la table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
 --
 -- Contraintes pour les tables exportées
 --
@@ -206,9 +255,9 @@ ALTER TABLE `user`
 -- Contraintes pour la table `situation`
 --
 ALTER TABLE `situation`
-  ADD CONSTRAINT `FK_EC2D9ACA10D96FEF` FOREIGN KEY (`scp_id`) REFERENCES `c_s_p` (`id`),
   ADD CONSTRAINT `FK_EC2D9ACA1823061F` FOREIGN KEY (`contrat_id`) REFERENCES `contrat` (`id`),
   ADD CONSTRAINT `FK_EC2D9ACA448A1682` FOREIGN KEY (`etudes_id`) REFERENCES `etudes` (`id`),
+  ADD CONSTRAINT `FK_EC2D9ACA73EFFAF6` FOREIGN KEY (`csp_id`) REFERENCES `c_s_p` (`id`),
   ADD CONSTRAINT `FK_EC2D9ACAA76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
   ADD CONSTRAINT `FK_EC2D9ACAFF25611A` FOREIGN KEY (`taille_id`) REFERENCES `taille` (`id`);
 

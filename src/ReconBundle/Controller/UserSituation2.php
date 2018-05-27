@@ -22,7 +22,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class UserSituation1 extends AbstractType
+class UserSituation2 extends AbstractType
 {
     /**
      * {@inheritdoc}
@@ -36,9 +36,12 @@ class UserSituation1 extends AbstractType
         }
 
         $builder
-        ->add('contrat', EntityType::class, array(
-            'class' => 'ReconBundle:Contrat',
-            'choice_label' => 'type',
+        ->add('poleemploie', ChoiceType::class, array(
+            'choices' => [
+                '0' => "Non"
+                '1' => "Oui"
+            ],
+            'label' => 'Pole emploie',
             'expanded' => true,
             'multiple' => false // -> boutons
         ))
