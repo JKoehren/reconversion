@@ -72,7 +72,7 @@ class UserSituation1 extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'ReconBundle\Entity\User'
+            'data_class' => 'ReconBundle\Entity\Situation'
         ));
     }
 
