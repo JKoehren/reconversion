@@ -22,6 +22,10 @@ situation:
     path: "/situation/{id}/{type}"
     defaults: {_controller: ReconBundle:User:situation}
     
+deconnexion:
+    path: /deco
+    defaults: { _controller: ReconBundle:Default:unconnect }
+    
 recon_homepage:
     path:     /
     defaults: { _controller: ReconBundle:Default:index }

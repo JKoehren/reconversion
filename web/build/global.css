@@ -219,3 +219,8 @@ input, textarea {
 .form .contact a:hover {
     background-color: #c12451;
 }
+bloc {
+    position: absolute;
+    top: 25px;
+    left:25px;
+}
