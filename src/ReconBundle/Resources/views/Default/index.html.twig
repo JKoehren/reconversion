@@ -4,7 +4,7 @@
 {% block body %}
 
 <div class="first-bloc">
-    {% if id is defined %} 
+    {% if id is defined and id %} 
         <h3>{{ id.id }}</h3>
     {% else %}
     <p>votre métier se transforme</p>

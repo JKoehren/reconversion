@@ -40,14 +40,14 @@ class UserController extends Controller
                 }  
                 $request->getSession()->getFlashBag()->add('notice', 'Nouvel utilisateur en attente.'); 
 
-                $transport = (new \Swift_SmtpTransport( 'auth.smtp.1and1.fr', 587 ))
-                  ->setUsername("reconv@santhor.com")
-                  ->setPassword("Reconvpro2018")
+                $transport = (new \Swift_SmtpTransport( 'mail.gmx.com', 587 ))
+                  ->setUsername('reconv@gmx.fr')
+                  ->setPassword("Reconv2018.")
                 ;
                 $mailer = new \Swift_Mailer($transport);
                 
                 $content = (new \Swift_Message('Confirmation inscription'))
-                ->setFrom('reconv@santhor.com')
+                ->setFrom('reconv@gmx.com')
                 ->setTo($user->getEmail())
                 ->setBody(
                     $this->renderView(
@@ -58,7 +58,7 @@ class UserController extends Controller
                     'text/html'
                 );
                 $mailer->send($content);
-                return $this->redirectToRoute('mail', array('id' => $user->getId())); 
+                return $this->redirectToRoute('mail', ['id' => $user->getId()]); 
                 } 
                 
             }
@@ -66,7 +66,7 @@ class UserController extends Controller
         
         $message='';  
         return $this->render('@Recon/User/form.html.twig', 
-        array('form' => $form->createView(), 'message' => $message, 'title' => "Inscription") 
+        ['form' => $form->createView(), 'message' => $message, 'title' => "Inscription"] 
         ); 
     }
 
@@ -99,7 +99,7 @@ class UserController extends Controller
         }
 
         return $this->render('@Recon/User/form.html.twig', 
-        array('form' => $form->createView(), 'message' => $message, 'title' => 'Inscription suite') 
+        ['form' => $form->createView(), 'message' => $message, 'title' => 'Inscription suite']
         ); 
     }
 
@@ -145,7 +145,7 @@ class UserController extends Controller
         }
 
         return $this->render('@Recon/User/situation.html.twig', 
-        array('form' => $form->createView(), 'message' => $message, 'title' => 'Situation', 'id' => $id) 
+        ['form' => $form->createView(), 'message' => $message, 'title' => 'Situation', 'id' => $id]
         ); 
     }
 
@@ -176,9 +176,10 @@ class UserController extends Controller
                 
                     if($user->getPass() === $userConfirm->getPass()){
                         // var_dump($userConfirm->getId());die;
-                        $message='Connexion réussie';  
+                        $message='Connexion réussie';
+                        $_SESSION['connect'] = ['id' => $userConfirm->getId(), 'name' => $userConfirm->getPrenom() . ' ' . $userConfirm->getNom()];
                         return $this->render('@Recon/User/success.html.twig', 
-                        array('id' => $userConfirm->getId(), 'message' => $message) 
+                        ['message' => $message,'id' =>  $_SESSION['connect']]
                         ); 
 
                     } else {
@@ -193,7 +194,7 @@ class UserController extends Controller
         }
 
         return $this->render('@Recon/User/form.html.twig', 
-        array('form' => $form->createView(), 'message' => $message, 'title' => 'Connexion') 
+        ['form' => $form->createView(), 'message' => $message, 'title' => 'Connexion'] 
         ); 
 
     }
@@ -206,7 +207,7 @@ class UserController extends Controller
         ->getRepository('ReconBundle:User');
         $user = $repository->find($_GET['id']);
 
-        return $this->render('@Recon/User/mail.html.twig', array("user" => $user));
+        return $this->render('@Recon/User/mail.html.twig', ["user" => $user]);
     }
 
     public function userlistAction(Request $request)
