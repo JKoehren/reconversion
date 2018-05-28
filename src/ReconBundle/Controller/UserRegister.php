@@ -24,9 +24,10 @@ class UserRegister extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $civilite = [
-            '0' => 'Madame',
-            '1' => 'Monsieur'
+            'Madame' => 0,
+            'Monsieur' => 1
         ];
+        
 
         $builder
         ->add('civilite', ChoiceType::class,  [
@@ -45,7 +46,6 @@ class UserRegister extends AbstractType
         ->add('ville', TextType::class, ['label' => 'Ville'])
         ->add('tel', TextType::class, ['label' => 'Tél'])
         ->add('pass', PasswordType::class, ['label' => 'Mot de passe'])
-        ->add('pass', PasswordType::class, ['label' => 'Confirmer votre mot de passe'])
         ->add('projet', TextareaType::class, ['label' => 'Votre projet'])
         ->add('attente', TextareaType::class, ['label' => 'Vos attentes'])
         ->add('save', SubmitType::class, ['label' => 'Valider']);

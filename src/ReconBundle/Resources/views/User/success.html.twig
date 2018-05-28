@@ -1,5 +1,16 @@
 {# src/ReconBundle/Resources/views/User/success.html.twig #} 
-<h1>Connexion</h1> 
+{% extends "header.html.twig" %} 
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block body %}
 {% if message %} 
-<p>{{ message }}</p> 
+<p>{{ message }}.</p> 
+    {% if message == 'Connexion réussie' %}
+         <a class="btn" href="./situation/{{ id.id }}/0">Vous pouvez maintenant acceder à votre situation par ici -></a>
+    {% endif %}
 {% endif %} 
+
+
+{% endblock %}
+

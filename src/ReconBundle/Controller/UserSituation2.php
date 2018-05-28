@@ -36,15 +36,15 @@ class UserSituation2 extends AbstractType
         }
 
         $builder
-        ->add('poleemploie', ChoiceType::class, array(
+        ->add('poleemploie', ChoiceType::class, [
             'choices' => [
-                '0' => "Non"
-                '1' => "Oui"
+                'Non' => 0,
+                'Oui' => 1
             ],
-            'label' => 'Pole emploie',
+            'label' => 'Pole emploi',
             'expanded' => true,
             'multiple' => false // -> boutons
-        ))
+        ])
         ->add('fonction', TextType::class, ['label' => 'Fonction'])
         ->add('csp', EntityType::class,  [
             'class' => "ReconBundle:CSP",

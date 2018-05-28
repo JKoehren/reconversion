@@ -40,7 +40,7 @@ class UserController extends Controller
                 }  
                 $request->getSession()->getFlashBag()->add('notice', 'Nouvel utilisateur en attente.'); 
 
-                $transport = (new \Swift_SmtpTransport( 'mail.gmx.com', 587 ))
+                $transport = (new \Swift_SmtpTransport( 'smtp.gmx.com', 587 ))
                   ->setUsername('reconv@gmx.fr')
                   ->setPassword("Reconv2018.")
                 ;
@@ -71,13 +71,20 @@ class UserController extends Controller
     }
 
     public function inscriptionsuiteAction(Request $request, $id){
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         
         $message='';  
         $repository = $this
         ->getDoctrine()
         ->getManager()
         ->getRepository('ReconBundle:User');
-        $user = $repository->find($id); 
+        $user = $repository->find($id);
+        
+
+        
+        
         $form = $this->createForm(UserRegister::class, $user);
 
         if ($request->isMethod('POST')) {
@@ -97,6 +104,19 @@ class UserController extends Controller
             }
             
         }
+        
+        if ($user->getPass()) {
+//            echo $_SESSION['connect']['id'] . $id;
+            if (isset($_SESSION['connect']) && ($_SESSION['connect']['id'] == $id)) {
+                header('location: ../situation/' . $id . '/0');
+            } else {
+                $message="Inscription terminé ! Vous pouvez maintenant vous connecter";
+                return $this->render('@Recon/User/success.html.twig', 
+                    ['message' => $message, 'title' => 'Inscription terminé']
+                        ); 
+            }
+             
+        }
 
         return $this->render('@Recon/User/form.html.twig', 
         ['form' => $form->createView(), 'message' => $message, 'title' => 'Inscription suite']
@@ -106,6 +126,9 @@ class UserController extends Controller
     public function situationAction(Request $request, $id, $type = null)
 
     {
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         $situation = new Situation();  
         $message='';  
         $repository = $this
@@ -117,6 +140,9 @@ class UserController extends Controller
         ->getManager()
         ->getRepository('ReconBundle:User');
         $user = $repository2->find($id); 
+        if (!isset($_SESSION['connect']) && ($_SESSION['connect']['id']) != $id) {
+            header('location: ../../login');
+        }
         if ($type == 1){
             $form = $this->createForm(UserSituation1::class, $situation);
         }
@@ -134,7 +160,8 @@ class UserController extends Controller
                 $em = $this->getDoctrine()->getManager(); 
                 $em->persist($situation); 
                 try {
-                    $em->flush(); 
+                    $em->flush();
+
                 } 
                 catch (\PDOException $e){
                     echo "erreur personnalisée";
@@ -143,15 +170,18 @@ class UserController extends Controller
             }
             
         }
-
+        
         return $this->render('@Recon/User/situation.html.twig', 
-        ['form' => $form->createView(), 'message' => $message, 'title' => 'Situation', 'id' => $id]
+        ['form' => $form->createView(), 'message' => $message, 'title' => 'Situation', 'id' => ['name' => ($user->getNom() . ' ' . $user->getPrenom()), 'id' => $id]]
         ); 
     }
 
     public function loginAction(Request $request)
 
     {  
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
 
         $user = new User();  
         $repository = $this
@@ -175,11 +205,12 @@ class UserController extends Controller
                 if ($userConfirm) {
                 
                     if($user->getPass() === $userConfirm->getPass()){
+                        $id = $userConfirm->getId();
                         // var_dump($userConfirm->getId());die;
                         $message='Connexion réussie';
-                        $_SESSION['connect'] = ['id' => $userConfirm->getId(), 'name' => $userConfirm->getPrenom() . ' ' . $userConfirm->getNom()];
+                        $_SESSION['connect'] = ['id' => $id, 'name' => $userConfirm->getPrenom() . ' ' . $userConfirm->getNom()];
                         return $this->render('@Recon/User/success.html.twig', 
-                        ['message' => $message,'id' =>  $_SESSION['connect']]
+                        ['message' => $message,'id' =>  $_SESSION['connect'],'title' => $message]
                         ); 
 
                     } else {
@@ -192,7 +223,10 @@ class UserController extends Controller
             } 
             
         }
-
+        if (isset($_SESSION['connect']['id'])) {
+            header('location: ../');
+            die;
+        }
         return $this->render('@Recon/User/form.html.twig', 
         ['form' => $form->createView(), 'message' => $message, 'title' => 'Connexion'] 
         ); 
