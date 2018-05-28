@@ -39,29 +39,34 @@ class UserController extends Controller
                     echo "erreur personnalisée";
                 }  
                 $request->getSession()->getFlashBag()->add('notice', 'Nouvel utilisateur en attente.'); 
-
-                $transport = (new \Swift_SmtpTransport( 'mail.gmx.com', 465 ))
-                  ->setUsername('reconv@gmx.fr')
-                  ->setPassword("Reconv2018.")
-                ;
-                $mailer = new \Swift_Mailer($transport);
                 
-                $content = (new \Swift_Message('Confirmation inscription'))
-                ->setFrom('reconv@gmx.com')
-                ->setTo($user->getEmail())
-                ->setBody(
-                    $this->renderView(
-                        // app/Resources/views/Emails/registration.html.twig
-                        '@Recon/User/mail.html.twig',
-                        array('id' => $user->getId())
-                    ),
-                    'text/html'
-                );
-                $mailer->send($content);
+//                try {
+//                $transport = (new \Swift_SmtpTransport( 'mail.gmx.com', 465, "tls" ))
+//                ->setUsername("reconv@gmx.fr")
+//                ->setPassword("Reconv2018.");
+//                $mailer = new \Swift_Mailer($transport);
+//                
+//                $content = (new \Swift_Message('Confirmation inscription'))
+//                    ->setFrom("reconv@gmx.fr")
+//                    ->setTo($user->getEmail())
+//                    ->setBody(
+//                        $this->renderView(
+//                            // app/Resources/views/Emails/registration.html.twig
+//                            '@Recon/User/mail.html.twig',
+//                            ['id' => $user->getId()]
+//                        )
+//                    )
+//                    ->setContentType('text/html');
+//                $mailer->send($content);
+//                    
+//                    
+//                } catch (Exception $e) {
+//                    echo 'Caught exception: ', $e->getMessage(), "\n";die;
+//                }
                 return $this->redirectToRoute('mail', ['id' => $user->getId()]); 
-                } 
-                
-            }
+            } 
+
+        }
 
         
         $message='';  
@@ -246,12 +251,7 @@ class UserController extends Controller
         ->getRepository('ReconBundle:User');
         $user = $repository->find($_GET['id']);
 
-        return $this->render('@Recon/User/mail.html.twig', ["user" => $user]);
-    }
-
-    public function userlistAction(Request $request)
-    {
-         return $this->render('@Recon/User/userlist.html.twig');
+        return $this->render('@Recon/User/mail.html.twig', ["id" => $user->getId()]);
     }
 
 }
