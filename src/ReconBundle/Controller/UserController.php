@@ -40,29 +40,29 @@ class UserController extends Controller
                 }  
                 $request->getSession()->getFlashBag()->add('notice', 'Nouvel utilisateur en attente.'); 
                 
-//                try {
-//                $transport = (new \Swift_SmtpTransport( 'mail.gmx.com', 465, "tls" ))
-//                ->setUsername("reconv@gmx.fr")
-//                ->setPassword("Reconv2018.");
-//                $mailer = new \Swift_Mailer($transport);
-//                
-//                $content = (new \Swift_Message('Confirmation inscription'))
-//                    ->setFrom("reconv@gmx.fr")
-//                    ->setTo($user->getEmail())
-//                    ->setBody(
-//                        $this->renderView(
-//                            // app/Resources/views/Emails/registration.html.twig
-//                            '@Recon/User/mail.html.twig',
-//                            ['id' => $user->getId()]
-//                        )
-//                    )
-//                    ->setContentType('text/html');
-//                $mailer->send($content);
-//                    
-//                    
-//                } catch (Exception $e) {
-//                    echo 'Caught exception: ', $e->getMessage(), "\n";die;
-//                }
+                try {
+                $transport = (new \Swift_SmtpTransport( 'mail.gmx.com', 587, "tls" ))
+                ->setUsername("reconv@gmx.fr")
+                ->setPassword("Reconv2018.");
+                $mailer = new \Swift_Mailer($transport);
+                
+                $content = (new \Swift_Message('Confirmation inscription'))
+                    ->setFrom("reconv@gmx.fr")
+                    ->setTo($user->getEmail())
+                    ->setBody(
+                        $this->renderView(
+                            // app/Resources/views/Emails/registration.html.twig
+                            '@Recon/User/mail.html.twig',
+                            ['id' => $user->getId()]
+                        )
+                    )
+                    ->setContentType('text/html');
+                $mailer->send($content);
+                    
+                    
+                } catch (Exception $e) {
+                    echo 'Caught exception: ', $e->getMessage(), "\n";die;
+                }
                 return $this->redirectToRoute('mail', ['id' => $user->getId()]); 
             } 
 
