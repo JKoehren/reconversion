@@ -16,7 +16,7 @@ class DefaultController extends Controller
             $connect = $_SESSION['connect'];
         }
 
-        return $this->render('ReconBundle:Default:index.html.twig', ['id' => $connect]);
+        return $this->render('ReconBundle:Default:index.html.twig', ['id' => $connect, 'title' => 'Accueil']);
     }
     
     public function unconnectAction()
@@ -25,6 +25,6 @@ class DefaultController extends Controller
         unset($_SESSION['connect']);
         unset($session);
         header('location: ./');
-        return $this->render('ReconBundle:Default:index.html.twig');
+        return $this->render('ReconBundle:Default:index.html.twig', ['title' => 'Accueil']);
     }
 }

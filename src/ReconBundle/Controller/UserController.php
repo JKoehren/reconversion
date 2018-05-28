@@ -40,7 +40,7 @@ class UserController extends Controller
                 }  
                 $request->getSession()->getFlashBag()->add('notice', 'Nouvel utilisateur en attente.'); 
 
-                $transport = (new \Swift_SmtpTransport( 'smtp.gmx.com', 587 ))
+                $transport = (new \Swift_SmtpTransport( 'mail.gmx.com', 465 ))
                   ->setUsername('reconv@gmx.fr')
                   ->setPassword("Reconv2018.")
                 ;
@@ -140,8 +140,13 @@ class UserController extends Controller
         ->getManager()
         ->getRepository('ReconBundle:User');
         $user = $repository2->find($id); 
-        if (!isset($_SESSION['connect']) && ($_SESSION['connect']['id']) != $id) {
+        if (!isset($_SESSION['connect'])) {
             header('location: ../../login');
+            die;
+        }
+        if ($_SESSION['connect']['id'] != $id) {
+            header('location: ../../..');
+            die;
         }
         if ($type == 1){
             $form = $this->createForm(UserSituation1::class, $situation);
