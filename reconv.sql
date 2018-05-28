@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net
 --
 -- Client :  localhost
--- Généré le :  Dim 27 Mai 2018 à 20:54
+-- Généré le :  Lun 28 Mai 2018 à 23:13
 -- Version du serveur :  5.6.37
--- Version de PHP :  5.6.31
+-- Version de PHP :  7.1.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -105,15 +105,8 @@ CREATE TABLE IF NOT EXISTS `situation` (
   `nomEntreprise` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `codePostal` varchar(5) COLLATE utf8_unicode_ci NOT NULL,
   `ville` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `poleemploie` tinyint(1) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Contenu de la table `situation`
---
-
-INSERT INTO `situation` (`id`, `user_id`, `contrat_id`, `csp_id`, `etudes_id`, `taille_id`, `type`, `fonction`, `anneeExp`, `nomEntreprise`, `codePostal`, `ville`, `poleemploie`) VALUES
-(1, 10, 5, 3, 3, 3, 1, 'Ingénieur', 3, 'UPMC', '75008', 'Paris', 0);
+  `poleemploie` tinyint(1) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -159,14 +152,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `prenom` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `projet` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL,
   `attente` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Contenu de la table `user`
---
-
-INSERT INTO `user` (`id`, `email`, `categorie`, `civilite`, `dateDeNaissance`, `adresse`, `codePostal`, `ville`, `tel`, `pass`, `nom`, `prenom`, `projet`, `attente`) VALUES
-(10, 'gilbert@yahoo.com', 1, 0, '1998-08-25', '7 rue des boulets', '75008', 'Paris', '0625020006', '1234', 'roger', 'gilbert', 'Mon projet super complet', 'Mes attentes super exigentes');
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Index pour les tables exportées
@@ -236,7 +222,7 @@ ALTER TABLE `etudes`
 -- AUTO_INCREMENT pour la table `situation`
 --
 ALTER TABLE `situation`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT pour la table `taille`
 --
@@ -246,7 +232,7 @@ ALTER TABLE `taille`
 -- AUTO_INCREMENT pour la table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=34;
 --
 -- Contraintes pour les tables exportées
 --

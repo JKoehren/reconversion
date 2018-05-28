@@ -41,10 +41,8 @@
     <bloc>Bonjour {{ id.name }}</bloc>
         {% else %}
         
-    
-        
         <li class="connect">
-            {% if title == 'Inscription terminé' %}
+            {% if title == 'Inscription terminé' or title == 'Inscription suite' %}
                  <a class="btn" href="../login">Connexion</a>
             {% else %}
                 <a class="btn" href="./login">Connexion</a> 
