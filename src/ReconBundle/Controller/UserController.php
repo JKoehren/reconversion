@@ -53,7 +53,7 @@ class UserController extends Controller
                         $this->renderView(
                             // app/Resources/views/Emails/registration.html.twig
                             '@Recon/User/mail.html.twig',
-                            ['id' => $user->getId()]
+                            ['id' => $user->getId(), 'name' => $user->getNom() . " " . $user->getPrenom()]
                         )
                     )
                     ->setContentType('text/html');
@@ -63,7 +63,7 @@ class UserController extends Controller
                 } catch (Exception $e) {
                     echo 'Caught exception: ', $e->getMessage(), "\n";die;
                 }
-                return $this->redirectToRoute('mail', ['id' => $user->getId()]); 
+                return $this->redirectToRoute('mail', ['id' => $user->getId(), 'name' => $user->getNom() . " " . $user->getPrenom()]); 
             } 
 
         }
